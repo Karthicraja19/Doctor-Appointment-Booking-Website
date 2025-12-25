@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Symptom Bot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(45, 107, 165);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 20px;
+            height: 96vh;
+            position: relative;
+        }
+
+      
+.chat-container {
+    max-width: 600px;
+    height: 520px;
+    margin: auto;
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 15px;  
+    box-shadow: 0 8px 24px rgba(11, 64, 238, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-family: 'Arial', sans-serif;
+}
+
+
+.chat-box {
+    height: 600px;
+    overflow-y: scroll;
+    border: 1px solid #ddd;
+    padding: 20px;
+    background-color: #f7f7f7; 
+    border-radius: 15px; 
+    margin-bottom: 20px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-top: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+}
+
+
+.chat-box::-webkit-scrollbar {
+    width: 10px;
+}
+
+.chat-box::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+}
+
+.chat-box::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+.user-message {
+    margin-bottom: 10px;
+    padding: 12px 18px;
+    border-radius: 25px;
+    background-color: #3b82f6;
+    color: white;
+    max-width: 80%;
+    line-height: 1.5;
+    word-wrap: break-word;
+    display: inline-block;
+    width: auto;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-left: auto; 
+}
+
+
+.bot-message {
+    margin-bottom: 10px;
+    padding: 12px 18px;
+    border-radius: 25px;
+    background-color: #e2e8f0; 
+    color: #1e293b;  
+    max-width: 80%;
+    line-height: 1.5;
+    word-wrap: break-word;
+    display: inline-block;
+    width: auto;
+    font-weight: normal;
+    font-style: normal;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    margin-right: auto; 
+}
+
+.user-message p, .bot-message p {
+    margin: 0;
+}
+
+input[type="text"] {
+    padding: 12px;
+    margin-top: 10px;
+    width: 95%;
+    border-radius: 25px;
+    border: 1px solid #ddd;
+    background-color: #f7f7f7;
+    font-size: 16px;
+    color: #333;
+    transition: border 0.3s ease; 
+}
+
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #3b82f6; 
+}
+
+button {
+    padding: 12px 20px;
+    margin-top: 15px;
+    background-color: #3b82f6; 
+    color: white;
+    border: none;
+    border-radius: 30px; 
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+
+button:hover {
+    background-color: #2563eb; 
+}
+
+@media (max-width: 768px) {
+    .chat-container {
+        width: 90%;
+        height: auto; 
+        padding: 15px;
+    }
+
+    .chat-box {
+        height: 350px;
+    }
+
+    .user-message, .bot-message {
+        max-width: 90%; 
+    }
+
+    input[type="text"] {
+        font-size: 14px;
+    }
+
+    button {
+        padding: 10px 18px;
+        font-size: 14px;
+    }
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="chat-container">
+        <h2>Share your symptoms here </h2>
+        <div class="chat-box" id="chat-box">
+            <div class="bot-message">
+                <h3>Bot: Please tell me your symptoms, one at a time.</h3></div>
+        </div>
+        <input type="text" id="user-input" placeholder="Enter your symptoms..." />
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        function sendMessage() {
+            var userInput = document.getElementById('user-input').value.trim();
+            var chatBox = document.getElementById('chat-box');
+    
+            if (userInput === '') {
+                alert('Please enter your symptoms');
+                return;
+            }
+
+            var userMessage = document.createElement('div');
+            userMessage.classList.add('user-message');
+            userMessage.textContent = 'You: ' + userInput;
+            chatBox.appendChild(userMessage);
+    
+            var botReply = getBotReply(userInput);
+            var botMessage = document.createElement('div');
+            botMessage.classList.add('bot-message');
+            botMessage.textContent = 'Bot: ' + botReply;
+            chatBox.appendChild(botMessage);
+    
+            document.getElementById('user-input').value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+    
+        function getBotReply(userInput) {
+           
+            switch (userInput.toLowerCase()) {
+                case 'headache':
+                    return 'The main reason for headache would be indigestion.So, dont eat anything till the headcahe stops or follow low diet like soup,juice,etc.that also if needed';
+                case 'fever':
+                    return 'for fever, take rest till the temperature gets normal and follow low diet like soup,juice,etc.that also if you feel hungry.Drink little bit of water at an interval of time';
+                case 'cold':
+                    return 'For cold, take rest and follow low diet.Drink little bit of water at an interval of time,you can also drink warm water if needed';
+                case 'body pain':
+                    return 'For body pain, take rest and dont do work that drains more energy ';
+                
+                default:
+                    return 'Thank you for sharing your symptom. Please contact this mobile number(928321141) for further advice.';
+            }
+        }
+    </script>
+    
+</body>
+</html>
